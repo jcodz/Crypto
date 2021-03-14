@@ -1,6 +1,7 @@
+
 # Crypto
 
-<img src="https://openclipart.org/image/2400px/svg_to_png/28580/kablam-Number-Animals-1.png" width="200"/> <img src="https://openclipart.org/download/71101/two.svg" width="300"/>
+<img src="https://user-images.githubusercontent.com/19657653/111069013-d69ec180-84a9-11eb-8070-52c2282f6224.png" width="200"/> <img src="https://openclipart.org/download/71101/two.svg" width="300"/>
 
 
 # Run app

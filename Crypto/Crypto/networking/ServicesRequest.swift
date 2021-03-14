@@ -10,14 +10,11 @@ import Foundation
 class ServicesRequest {
     
     public class func callService(with requestModel: Request) {
-        
-        
         var components = URLComponents(string: requestModel.urlString)
         components?.queryItems = requestModel.queries
         
         guard let url = components?.url,
               let callback = requestModel.onBaseCallback else {
-//            requestModel.onBaseCallback(.failure(with: .notFound))
             return
         }
         
@@ -30,11 +27,7 @@ class ServicesRequest {
             if let error = error {
                 callback(.failure(with:.serverError(error: error)))
             } else if let data = data, response.statusCode == 200 {
-                do {
-                    callback(.success(data: data))
-                } catch {
-                    callback(.failure(with: .parserError))
-                }
+                callback(.success(data: data))
             } else {
                 callback(.failure(with: .defaultError))
             }

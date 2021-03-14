@@ -13,10 +13,10 @@ class CryptoDetailViewController: UIViewController {
     @IBOutlet private weak var askLabel: UILabel!
     @IBOutlet private weak var lowLabel: UILabel!
     @IBOutlet private weak var highLabel: UILabel!
-    @IBOutlet private weak var valumeLabel: UILabel!
-    @IBOutlet private weak var spreadLabel: UILabel!
+    @IBOutlet private weak var volumeLabel: UILabel!
     
     private var viewModel: CryptoDetailViewModel!
+    private var timer = Timer()
     
     var bookId: String?
     
@@ -24,8 +24,9 @@ class CryptoDetailViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setup()
-        self.showSpinner()
-        self.viewModel.fetchDetail(with: self.bookId ?? "")
+        showSpinner()
+        fetchDetail()
+        setAutoRefresh()
     }
     
     private func setup() {
@@ -51,6 +52,14 @@ class CryptoDetailViewController: UIViewController {
     private func hideSpinner() {
         loader.stopAnimating()
     }
+    
+    @objc private func fetchDetail() {
+        self.viewModel.fetchDetail(with: self.bookId ?? "")
+    }
+    
+    private func setAutoRefresh() {
+        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.fetchDetail), userInfo: nil, repeats: true)
+    }
 }
 
 extension CryptoDetailViewController: CryptoDetailDelegate {
@@ -61,7 +70,7 @@ extension CryptoDetailViewController: CryptoDetailDelegate {
             self.askLabel.text = book.ask
             self.lowLabel.text = book.low
             self.highLabel.text = book.high
-            self.valumeLabel.text = book.volume
+            self.volumeLabel.text = book.volume
             self.hideSpinner()
         }
     }

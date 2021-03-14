@@ -27,6 +27,7 @@
 		528036C825FE136400FB185D /* CryptoParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036C725FE136400FB185D /* CryptoParser.swift */; };
 		528036CB25FE159B00FB185D /* CryptoDetailDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036CA25FE159B00FB185D /* CryptoDetailDelegate.swift */; };
 		528036CE25FE15FB00FB185D /* CryptoDetailDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036CD25FE15FB00FB185D /* CryptoDetailDto.swift */; };
+		528036D325FE2AD000FB185D /* BookBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036D225FE2AD000FB185D /* BookBannerCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +53,7 @@
 		528036C725FE136400FB185D /* CryptoParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoParser.swift; sourceTree = "<group>"; };
 		528036CA25FE159B00FB185D /* CryptoDetailDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailDelegate.swift; sourceTree = "<group>"; };
 		528036CD25FE15FB00FB185D /* CryptoDetailDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailDto.swift; sourceTree = "<group>"; };
+		528036D225FE2AD000FB185D /* BookBannerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookBannerCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 		5280368E25FDD6DF00FB185D /* customs */ = {
 			isa = PBXGroup;
 			children = (
+				528036D225FE2AD000FB185D /* BookBannerCell.swift */,
 			);
 			path = customs;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				528036D325FE2AD000FB185D /* BookBannerCell.swift in Sources */,
 				5280369325FDD72900FB185D /* CryptoEntriesViewController.swift in Sources */,
 				528036B525FDE1CC00FB185D /* APICrypto.swift in Sources */,
 				528036A925FDD9E200FB185D /* CryptoEntryDto.swift in Sources */,

@@ -43,18 +43,18 @@ class CryptoEntriesViewController: UIViewController {
         collectionView.refreshControl = refreshControl // iOS 10+
     }
     
-    @objc
-    private func didPullToRefresh(_ sender: Any) {
-        self.viewModel.fetchEntries()
-        showSpinner()
-        refreshControl.endRefreshing()
-    }
-    
     private func setupNavigation() {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.isTranslucent = false
         self.edgesForExtendedLayout = []
         self.title = "Books"
+    }
+    
+    @objc
+    private func didPullToRefresh(_ sender: Any) {
+        self.viewModel.fetchEntries()
+        showSpinner()
+        refreshControl.endRefreshing()
     }
     
     private func showSpinner() {
@@ -110,6 +110,7 @@ extension CryptoEntriesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "CryptoDetail") as? CryptoDetailViewController else { return }
         detailVC.bookId = viewModel.datasource[indexPath.row].book
+        detailVC.availableBooks = viewModel.datasource
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

@@ -8,17 +8,22 @@
 import UIKit
 
 class CryptoDetailViewController: UIViewController {
+    @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var loader: UIActivityIndicatorView!
     @IBOutlet private weak var bidLabel: UILabel!
     @IBOutlet private weak var askLabel: UILabel!
     @IBOutlet private weak var lowLabel: UILabel!
     @IBOutlet private weak var highLabel: UILabel!
     @IBOutlet private weak var volumeLabel: UILabel!
+    @IBOutlet private weak var booksBanner: UICollectionView!
     
     private var viewModel: CryptoDetailViewModel!
-    private var timer = Timer()
+    private var autoRefreshTimer = Timer()
+    private var autoScrollTimer = Timer()
+    private let loops = 1000
     
     var bookId: String?
+    var availableBooks: [CryptoEntryDto] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +37,8 @@ class CryptoDetailViewController: UIViewController {
     private func setup() {
         setupNavigation()
         setupViewModel()
+        setupCollection()
+        setupAutoscrollableBanner()
     }
     
     private func setupViewModel() {
@@ -43,6 +50,21 @@ class CryptoDetailViewController: UIViewController {
         self.navigationController?.navigationBar.isTranslucent = false
         self.edgesForExtendedLayout = []
         self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
+    private func setupCollection() {
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        
+        collectionView.register(BookBannerCell.self, forCellWithReuseIdentifier: BookBannerCell.cellId)
+    }
+    
+    private func setupAutoscrollableBanner() {
+        autoScrollTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(self.autoscroll), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func autoscroll() {
+        self.collectionView.contentOffset.x += 1
     }
     
     private func showSpinner() {
@@ -58,7 +80,7 @@ class CryptoDetailViewController: UIViewController {
     }
     
     private func setAutoRefresh() {
-        timer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.fetchDetail), userInfo: nil, repeats: true)
+        autoRefreshTimer = Timer.scheduledTimer(timeInterval: 30, target: self, selector: #selector(self.fetchDetail), userInfo: nil, repeats: true)
     }
 }
 
@@ -78,5 +100,31 @@ extension CryptoDetailViewController: CryptoDetailDelegate {
     func fetchFinishWithError(error: CryptoNetworkResult.CryptoNetworkError) {
         let alert = UIAlertController(title: "Error", message: "There was an internal error", preferredStyle: .alert)
         self.present(alert, animated: true, completion: nil)
+    }
+}
+
+extension CryptoDetailViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return availableBooks.count * loops
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookBannerCell.cellId, for: indexPath) as? BookBannerCell else { return UICollectionViewCell() }
+        
+        cell.configure(with: availableBooks[indexPath.row % availableBooks.count])
+        
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: view.frame.width / 2, height: 60)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
 }

@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -76,8 +77,31 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="4Bm-32-32v">
+                                <rect key="frame" x="0.0" y="60" width="414" height="60"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="GUT-Z9-9GP"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Mlx-QD-Ryg">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="V6j-t5-fjK">
+                                        <rect key="frame" x="0.0" y="-34" width="128" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="aDc-9e-HNp">
+                                            <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="zkD-nE-xtr">
-                                <rect key="frame" x="0.0" y="44" width="414" height="400"/>
+                                <rect key="frame" x="0.0" y="120" width="414" height="400"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rnr-Qr-W3s">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
@@ -218,16 +242,21 @@
                         <viewLayoutGuide key="safeArea" id="1Vc-Cf-awC"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="zkD-nE-xtr" firstAttribute="top" secondItem="4Bm-32-32v" secondAttribute="bottom" id="08C-Fo-qlJ"/>
+                            <constraint firstItem="4Bm-32-32v" firstAttribute="top" secondItem="1Vc-Cf-awC" secondAttribute="top" constant="16" id="3g5-nR-4Gh"/>
+                            <constraint firstItem="4Bm-32-32v" firstAttribute="leading" secondItem="1Vc-Cf-awC" secondAttribute="leading" id="60o-kH-ZrW"/>
                             <constraint firstItem="mAJ-m5-sP6" firstAttribute="centerX" secondItem="MoH-N7-Qzm" secondAttribute="centerX" id="Dwv-LS-wNj"/>
                             <constraint firstItem="1Vc-Cf-awC" firstAttribute="trailing" secondItem="zkD-nE-xtr" secondAttribute="trailing" id="SzJ-sd-wDO"/>
                             <constraint firstItem="mAJ-m5-sP6" firstAttribute="centerY" secondItem="MoH-N7-Qzm" secondAttribute="centerY" id="YNj-Z3-9oa"/>
                             <constraint firstItem="zkD-nE-xtr" firstAttribute="leading" secondItem="1Vc-Cf-awC" secondAttribute="leading" id="vTZ-9f-5vN"/>
-                            <constraint firstItem="zkD-nE-xtr" firstAttribute="top" secondItem="1Vc-Cf-awC" secondAttribute="top" id="ySm-Jp-edh"/>
+                            <constraint firstItem="1Vc-Cf-awC" firstAttribute="trailing" secondItem="4Bm-32-32v" secondAttribute="trailing" id="vrv-8K-181"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="askLabel" destination="5yK-aa-V2e" id="J55-G1-Qy7"/>
                         <outlet property="bidLabel" destination="Ec4-rD-Thi" id="IdI-zq-ZVg"/>
+                        <outlet property="booksBanner" destination="4Bm-32-32v" id="XW1-iC-vsD"/>
+                        <outlet property="collectionView" destination="4Bm-32-32v" id="4hF-4j-C9i"/>
                         <outlet property="highLabel" destination="zr0-Mn-EKX" id="pkQ-DN-b0o"/>
                         <outlet property="loader" destination="mAJ-m5-sP6" id="Uef-Ex-efz"/>
                         <outlet property="lowLabel" destination="qJ8-hS-Zhd" id="e1t-PP-jxv"/>

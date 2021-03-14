@@ -11,44 +11,45 @@ class ServicesRequest {
     
     public class func callService(with requestModel: Request) {
         
-        guard var components = URLComponents(string: cryptoRequest.urlString),
-              let url = components.url else {
-            completion(.failure(with: .notFound))
+        guard var components = URLComponents(string: requestModel.urlString),
+              let url = components.url,
+              let callback = requestModel.onBaseCallback else {
+//            requestModel.onBaseCallback(.failure(with: .notFound))
             return
         }
         
-        components.queryItems = cryptoRequest.queries
+        components.queryItems = requestModel.queries
         
         var request = URLRequest(url: url)
-        request.httpMethod = cryptoRequest.method
+        request.httpMethod = requestModel.method
         
         URLSession.shared.dataTask(with: request) { (data, response, error) in
             guard let response = response as? HTTPURLResponse else {
-                requestModel.onBaseCallback(.failure(with: .defaultError))
+                callback(.failure(with: .defaultError))
                 return
             }
             
             if let error = error {
-                requestModel.onBaseCallback(.serverError(error: error))
+                callback(.failure(with:.serverError(error: error)))
             } else if let data = data, response.statusCode == 200 {
                 do {
-                    let entries = try self.decodeResponse(data: data)
-                    requestModel.onBaseCallback(.success(entries: entries))
+                    let entries = try ServicesRequest.decodeResponse(data: data)
+                    callback(.success(entries: entries))
                 } catch {
-                    requestModel.onBaseCallback(.failure(with: .parserError))
+                    callback(.failure(with: .parserError))
                 }
             } else {
-                requestModel.onBaseCallback(.failure(with: .defaultError))
+                callback(.failure(with: .defaultError))
             }
         }.resume()
     }
 }
 
 extension ServicesRequest {
-    fileprivate func decodeResponse(data: Data) throws -> [CryptoEntryDto]{
+    fileprivate static func decodeResponse(data: Data) throws -> [CryptoEntryDto]{
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
-        let response = try decoder.decode([CryptoEntryDto].self, from: data)
-        return response
+        let response = try decoder.decode(CryptoEntriesDto.self, from: data)
+        return response.payload
     }
 }

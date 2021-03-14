@@ -7,4 +7,10 @@
 
 import Foundation
 
-class CryptoEntryDto: Decodable {}
+struct CryptoEntriesDto: Decodable {
+    let payload: [CryptoEntryDto]
+}
+
+struct CryptoEntryDto: Decodable {
+    let book: String
+}

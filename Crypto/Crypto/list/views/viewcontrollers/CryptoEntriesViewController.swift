@@ -36,7 +36,7 @@ class CryptoEntriesViewController: UIViewController {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
         collectionView.register(EntryCell.self, forCellWithReuseIdentifier: EntryCell.cellId)
-        refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .allEvents)
         collectionView.alwaysBounceVertical = true
         collectionView.refreshControl = refreshControl
     }

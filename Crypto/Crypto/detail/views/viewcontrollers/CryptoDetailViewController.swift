@@ -64,7 +64,11 @@ class CryptoDetailViewController: UIViewController {
     }
     
     @objc private func autoscroll() {
-        self.collectionView.contentOffset.x += 1
+        self.collectionView.contentOffset.x += 0.5
+        
+        UIView.animate(withDuration: 0.2) {
+            self.view.layoutIfNeeded()
+        }
     }
     
     private func showSpinner() {

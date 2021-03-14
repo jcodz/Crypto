@@ -35,12 +35,10 @@ class CryptoEntriesViewController: UIViewController {
     private func setupCollection() {
         self.collectionView.dataSource = self
         self.collectionView.delegate = self
-        
         collectionView.register(EntryCell.self, forCellWithReuseIdentifier: EntryCell.cellId)
-        
         refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
         collectionView.alwaysBounceVertical = true
-        collectionView.refreshControl = refreshControl // iOS 10+
+        collectionView.refreshControl = refreshControl
     }
     
     private func setupNavigation() {

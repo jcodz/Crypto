@@ -43,12 +43,17 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="t78-0W-qM5">
+                                <rect key="frame" x="197" y="394" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="RxV-n3-CTW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="6xN-cu-mNE"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="RxV-n3-CTW" secondAttribute="trailing" id="A5Q-Ja-ZCO"/>
+                            <constraint firstItem="t78-0W-qM5" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bze-xE-Bfb"/>
+                            <constraint firstItem="t78-0W-qM5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="c5j-ak-AHD"/>
                             <constraint firstItem="RxV-n3-CTW" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="dO8-nr-C1B"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="RxV-n3-CTW" secondAttribute="bottom" id="gQM-lh-Aoq"/>
                         </constraints>
@@ -56,6 +61,7 @@
                     <navigationItem key="navigationItem" id="h3j-yc-3D9"/>
                     <connections>
                         <outlet property="collectionView" destination="RxV-n3-CTW" id="wyH-dy-2x3"/>
+                        <outlet property="loader" destination="t78-0W-qM5" id="2KK-dH-eVN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

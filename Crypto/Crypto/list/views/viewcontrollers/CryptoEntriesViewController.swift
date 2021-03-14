@@ -8,16 +8,10 @@
 import UIKit
 
 class CryptoEntriesViewController: UIViewController {
-    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var loader: UIActivityIndicatorView!
     
     private var viewModel: CryptoEntriesViewModel!
-    private var datasource: [CryptoEntryDto] = [] {
-        didSet {
-            DispatchQueue.main.async {
-                self.collectionView.reloadData()
-            }
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,17 +43,21 @@ class CryptoEntriesViewController: UIViewController {
         self.edgesForExtendedLayout = []
         
     }
-    private func showSpinner() {}
-    private func hideSpinner() {}
+    
+    private func showSpinner() {
+        loader.startAnimating()
+    }
+    
+    private func hideSpinner() {
+        loader.stopAnimating()
+    }
 }
 
 extension CryptoEntriesViewController: CryptoEntriesDelegate {
     func fetchFinishWithSuccess(entries: [CryptoEntryDto]) {
-        self.datasource = entries
-        
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
             self.hideSpinner()
+            self.collectionView.reloadData()
         }
     }
     
@@ -70,13 +68,13 @@ extension CryptoEntriesViewController: CryptoEntriesDelegate {
 
 extension CryptoEntriesViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return datasource.count
+        return viewModel.datasource.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EntryCell.cellId, for: indexPath) as? EntryCell else { return UICollectionViewCell() }
         
-        cell.configure(with: datasource[indexPath.row])
+        cell.configure(with: viewModel.datasource[indexPath.row])
         
         return cell
     }
@@ -88,6 +86,6 @@ extension CryptoEntriesViewController: UICollectionViewDataSource, UICollectionV
 
 extension CryptoEntriesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
+        self.navigationController?.pushViewController(CryptoDetailViewController(), animated: true)
     }
 }

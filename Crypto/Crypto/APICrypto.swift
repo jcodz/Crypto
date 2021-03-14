@@ -14,4 +14,10 @@ class APICrypto {
         request.onBaseCallback = completion
         ServicesRequest.callService(with: request)
     }
+    
+    class func getLastPrices(completion: @escaping (_ status: CryptoNetworkResult) -> Void) {
+        let request = Request(urlString: ServiceDefinitions.lastPrices)
+        request.onBaseCallback = completion
+        ServicesRequest.callService(with: request)
+    }
 }

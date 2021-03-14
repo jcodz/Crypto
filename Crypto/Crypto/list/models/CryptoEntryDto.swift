@@ -13,4 +13,5 @@ struct CryptoEntriesDto: Decodable {
 
 struct CryptoEntryDto: Decodable {
     let book: String
+    let last: String?
 }

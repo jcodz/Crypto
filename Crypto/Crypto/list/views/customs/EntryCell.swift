@@ -18,6 +18,27 @@ class EntryCell: UICollectionViewCell {
         return label
     }()
     
+    private lazy var lastPriceTitleLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var lastPriceLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var lastPriceContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(lastPriceTitleLabel)
+        addSubview(lastPriceLabel)
+        addSubview(container)
+        return container
+    }()
+    
     private lazy var devider: UIView = {
         let devider = UIView()
         devider.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +67,24 @@ class EntryCell: UICollectionViewCell {
         ])
         
         NSLayoutConstraint.activate([
+            lastPriceTitleLabel.topAnchor.constraint(equalTo: lastPriceContainer.topAnchor),
+            lastPriceTitleLabel.trailingAnchor.constraint(equalTo: lastPriceContainer.trailingAnchor),
+            lastPriceTitleLabel.leadingAnchor.constraint(equalTo: lastPriceContainer.leadingAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            lastPriceLabel.topAnchor.constraint(equalTo: self.lastPriceTitleLabel.bottomAnchor, constant: 8),
+            lastPriceLabel.trailingAnchor.constraint(equalTo: lastPriceContainer.trailingAnchor),
+            lastPriceLabel.leadingAnchor.constraint(equalTo: lastPriceContainer.leadingAnchor),
+        ])
+        
+        NSLayoutConstraint.activate([
+            lastPriceContainer.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -24),
+            lastPriceContainer.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            lastPriceContainer.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
             devider.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 24),
             devider.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24),
             devider.bottomAnchor.constraint(equalTo: self.bottomAnchor),
@@ -55,5 +94,7 @@ class EntryCell: UICollectionViewCell {
     
     func configure(with cryptoModel: CryptoEntryDto) {
         self.titleLabel.text = cryptoModel.book
+        self.lastPriceTitleLabel.text = "Last Price:"
+        self.lastPriceLabel.text = cryptoModel.last
     }
 }

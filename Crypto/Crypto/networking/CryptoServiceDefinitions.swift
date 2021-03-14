@@ -14,4 +14,8 @@ class ServiceDefinitions {
     static var availableBooks: String {
         return "\(ServiceDefinitions.domain)/v3/available_books/"
     }
+    
+    static var lastPrices: String {
+        return "\(ServiceDefinitions.domain)/v3/ticker/"
+    }
 }

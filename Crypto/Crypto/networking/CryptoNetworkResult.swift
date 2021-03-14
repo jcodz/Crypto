@@ -8,7 +8,7 @@
 import Foundation
 
 enum CryptoNetworkResult {
-    case success(entries: [CryptoEntryDto])
+    case success(data: Data)
     case failure(with: CryptoNetworkError)
     
     enum CryptoNetworkError {

@@ -14,4 +14,9 @@ struct CryptoEntriesDto: Decodable {
 struct CryptoEntryDto: Decodable {
     let book: String
     let last: String?
+    let volume: String?
+    let high: String?
+    let low: String?
+    let ask: String?
+    let bid: String?
 }

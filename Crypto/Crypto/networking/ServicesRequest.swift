@@ -11,19 +11,17 @@ class ServicesRequest {
     
     public class func callService(with requestModel: Request) {
         
-        guard var components = URLComponents(string: requestModel.urlString),
-              let url = components.url,
+        
+        var components = URLComponents(string: requestModel.urlString)
+        components?.queryItems = requestModel.queries
+        
+        guard let url = components?.url,
               let callback = requestModel.onBaseCallback else {
 //            requestModel.onBaseCallback(.failure(with: .notFound))
             return
         }
         
-        components.queryItems = requestModel.queries
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = requestModel.method
-        
-        URLSession.shared.dataTask(with: request) { (data, response, error) in
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
             guard let response = response as? HTTPURLResponse else {
                 callback(.failure(with: .defaultError))
                 return
@@ -33,8 +31,7 @@ class ServicesRequest {
                 callback(.failure(with:.serverError(error: error)))
             } else if let data = data, response.statusCode == 200 {
                 do {
-                    let entries = try ServicesRequest.decodeResponse(data: data)
-                    callback(.success(entries: entries))
+                    callback(.success(data: data))
                 } catch {
                     callback(.failure(with: .parserError))
                 }
@@ -45,11 +42,5 @@ class ServicesRequest {
     }
 }
 
-extension ServicesRequest {
-    fileprivate static func decodeResponse(data: Data) throws -> [CryptoEntryDto]{
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .secondsSince1970
-        let response = try decoder.decode(CryptoEntriesDto.self, from: data)
-        return response.payload
-    }
-}
+
+

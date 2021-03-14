@@ -11,6 +11,7 @@ class CryptoEntriesViewController: UIViewController {
     @IBOutlet private weak var collectionView: UICollectionView!
     @IBOutlet private weak var loader: UIActivityIndicatorView!
     
+    private let refreshControl = UIRefreshControl()
     private var viewModel: CryptoEntriesViewModel!
     
     override func viewDidLoad() {
@@ -36,12 +37,24 @@ class CryptoEntriesViewController: UIViewController {
         self.collectionView.delegate = self
         
         collectionView.register(EntryCell.self, forCellWithReuseIdentifier: EntryCell.cellId)
+        
+        refreshControl.addTarget(self, action: #selector(didPullToRefresh(_:)), for: .valueChanged)
+        collectionView.alwaysBounceVertical = true
+        collectionView.refreshControl = refreshControl // iOS 10+
+    }
+    
+    @objc
+    private func didPullToRefresh(_ sender: Any) {
+        self.viewModel.fetchEntries()
+        showSpinner()
+        refreshControl.endRefreshing()
     }
     
     private func setupNavigation() {
+        self.navigationController?.navigationBar.prefersLargeTitles = true
         self.navigationController?.navigationBar.isTranslucent = false
         self.edgesForExtendedLayout = []
-        
+        self.title = "Books"
     }
     
     private func showSpinner() {
@@ -62,7 +75,8 @@ extension CryptoEntriesViewController: CryptoEntriesDelegate {
     }
     
     func fetchFinishWithError(error: CryptoNetworkResult.CryptoNetworkError) {
-        //Show alert
+        let alert = UIAlertController(title: "Error", message: "There was an internal error", preferredStyle: .alert)
+        self.present(alert, animated: true, completion: nil)
     }
 }
 
@@ -86,6 +100,8 @@ extension CryptoEntriesViewController: UICollectionViewDataSource, UICollectionV
 
 extension CryptoEntriesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.navigationController?.pushViewController(CryptoDetailViewController(), animated: true)
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "CryptoDetail") as? CryptoDetailViewController else { return }
+        detailVC.bookId = viewModel.datasource[indexPath.row].book
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }

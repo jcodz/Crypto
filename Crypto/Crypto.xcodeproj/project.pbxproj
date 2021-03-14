@@ -23,6 +23,10 @@
 		528036B925FDE44300FB185D /* CryptoEntriesDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036B825FDE44300FB185D /* CryptoEntriesDelegate.swift */; };
 		528036BD25FDE6E500FB185D /* CryptoEntriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036BC25FDE6E500FB185D /* CryptoEntriesViewModel.swift */; };
 		528036C125FDEDDC00FB185D /* EntryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036C025FDEDDC00FB185D /* EntryCell.swift */; };
+		528036C525FE107700FB185D /* CryptoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036C425FE107700FB185D /* CryptoDetailViewModel.swift */; };
+		528036C825FE136400FB185D /* CryptoParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036C725FE136400FB185D /* CryptoParser.swift */; };
+		528036CB25FE159B00FB185D /* CryptoDetailDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036CA25FE159B00FB185D /* CryptoDetailDelegate.swift */; };
+		528036CE25FE15FB00FB185D /* CryptoDetailDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528036CD25FE15FB00FB185D /* CryptoDetailDto.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +48,10 @@
 		528036B825FDE44300FB185D /* CryptoEntriesDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoEntriesDelegate.swift; sourceTree = "<group>"; };
 		528036BC25FDE6E500FB185D /* CryptoEntriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoEntriesViewModel.swift; sourceTree = "<group>"; };
 		528036C025FDEDDC00FB185D /* EntryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryCell.swift; sourceTree = "<group>"; };
+		528036C425FE107700FB185D /* CryptoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailViewModel.swift; sourceTree = "<group>"; };
+		528036C725FE136400FB185D /* CryptoParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoParser.swift; sourceTree = "<group>"; };
+		528036CA25FE159B00FB185D /* CryptoDetailDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailDelegate.swift; sourceTree = "<group>"; };
+		528036CD25FE15FB00FB185D /* CryptoDetailDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoDetailDto.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +94,7 @@
 				5280367B25FDD5D800FB185D /* LaunchScreen.storyboard */,
 				5280367E25FDD5D800FB185D /* Info.plist */,
 				528036B425FDE1CC00FB185D /* APICrypto.swift */,
+				528036C725FE136400FB185D /* CryptoParser.swift */,
 			);
 			path = Crypto;
 			sourceTree = "<group>";
@@ -138,6 +147,7 @@
 		5280368A25FDD69600FB185D /* viewmodels */ = {
 			isa = PBXGroup;
 			children = (
+				528036C425FE107700FB185D /* CryptoDetailViewModel.swift */,
 			);
 			path = viewmodels;
 			sourceTree = "<group>";
@@ -154,6 +164,7 @@
 		5280368C25FDD6AD00FB185D /* models */ = {
 			isa = PBXGroup;
 			children = (
+				528036CD25FE15FB00FB185D /* CryptoDetailDto.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -162,6 +173,7 @@
 			isa = PBXGroup;
 			children = (
 				5280369525FDD74F00FB185D /* CryptoDetailViewController.swift */,
+				528036CA25FE159B00FB185D /* CryptoDetailDelegate.swift */,
 			);
 			path = viewcontrollers;
 			sourceTree = "<group>";
@@ -275,12 +287,16 @@
 				528036B525FDE1CC00FB185D /* APICrypto.swift in Sources */,
 				528036A925FDD9E200FB185D /* CryptoEntryDto.swift in Sources */,
 				5280367125FDD5D700FB185D /* AppDelegate.swift in Sources */,
+				528036CB25FE159B00FB185D /* CryptoDetailDelegate.swift in Sources */,
+				528036C825FE136400FB185D /* CryptoParser.swift in Sources */,
 				5280367325FDD5D700FB185D /* SceneDelegate.swift in Sources */,
 				528036B925FDE44300FB185D /* CryptoEntriesDelegate.swift in Sources */,
 				5280369625FDD74F00FB185D /* CryptoDetailViewController.swift in Sources */,
 				528036A325FDD88C00FB185D /* CryptoServiceDefinitions.swift in Sources */,
+				528036CE25FE15FB00FB185D /* CryptoDetailDto.swift in Sources */,
 				528036C125FDEDDC00FB185D /* EntryCell.swift in Sources */,
 				528036A625FDD98100FB185D /* CryptoNetworkResult.swift in Sources */,
+				528036C525FE107700FB185D /* CryptoDetailViewModel.swift in Sources */,
 				528036AC25FDDA6E00FB185D /* CryptoRequest.swift in Sources */,
 				528036BD25FDE6E500FB185D /* CryptoEntriesViewModel.swift in Sources */,
 				5280369C25FDD7D600FB185D /* ServicesRequest.swift in Sources */,

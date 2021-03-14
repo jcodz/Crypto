@@ -14,24 +14,20 @@ class CryptoEntriesViewModel {
     private var lastPrices: [CryptoEntryDto] = []
     
     var datasource: [CryptoEntryDto] {
-        var mergedList: [CryptoEntryDto] = []
+        var matchedList: [CryptoEntryDto] = []
         
         for crypto in cryptos {
-            for lastPrice in lastPrices {
-                if crypto.book == lastPrice.book {
-                    mergedList.append(lastPrice)
-                }
+            if let index = lastPrices.firstIndex(where: { $0.book ==  crypto.book }) {
+                matchedList.append(lastPrices[index])
             }
         }
         
-        return mergedList
+        return matchedList
     }
-    
     
     weak var delegate: CryptoEntriesDelegate?
     
     func fetchEntries() {
-        
         getCryptos()
         getLastPrices()
         
@@ -45,8 +41,14 @@ class CryptoEntriesViewModel {
         
         APICrypto.getCryptos { [weak self] result in
             switch result {
-            case .success(let entries):
-                self?.cryptos = entries
+            case .success(let data):
+                
+                guard let entries = CryptoParser<CryptoEntriesDto>.parse(from: data) else {
+                    self?.delegate?.fetchFinishWithError(error: .defaultError)
+                    return
+                }
+                
+                self?.cryptos = entries.payload
             case .failure(let error):
                 self?.delegate?.fetchFinishWithError(error: error)
             }
@@ -60,8 +62,14 @@ class CryptoEntriesViewModel {
         
         APICrypto.getLastPrices { [weak self] result in
             switch result {
-            case .success(let entries):
-                self?.lastPrices = entries
+            case .success(let data):
+                
+                guard let entries = CryptoParser<CryptoEntriesDto>.parse(from: data) else {
+                    self?.delegate?.fetchFinishWithError(error: .defaultError)
+                    return
+                }
+                
+                self?.lastPrices = entries.payload
             case .failure(let error):
                 self?.delegate?.fetchFinishWithError(error: error)
             }
